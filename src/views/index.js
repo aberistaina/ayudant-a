@@ -97,9 +97,10 @@ form.addEventListener("submit", async (event) => {
 tablaAnimales.addEventListener("click", (event) =>{
     const elemento = event.target
     const id = elemento.dataset.id
-    const confirmación = confirm("Desea eliminar el animal?")
+    
 
     if(elemento.classList.contains("eliminar")){
+        const confirmación = confirm("Desea eliminar el animal?")
         if(confirmación){
             eliminarAnimal(id)
         }

@@ -2,13 +2,17 @@ import { Animal } from "../models/Animales.model.js";
 
 export const createAnimal = async(req, res) =>{
     try {
-        const datosAnimal = req.body
-        const animal = await Animal.create(datosAnimal)
-        console.log(animal)
+        const { nombre, tipo } = req.body
+
+        const nuevoAnimal = Animal.create({
+            nombre,
+            tipo
+        })
+
         res.status(201).json({
             code: 201, 
             message: "Animal creado Correctamente",
-            data: animal
+            data: nuevoAnimal
         })
     } catch (error) {
         console.log(error.message);
@@ -21,11 +25,12 @@ export const createAnimal = async(req, res) =>{
 
 export const getAnimals = async(req, res)=>{
     try {
-        const animales = await Animal.getAll()
+        
+        const allAnimals = await Animal.findAll()
         res.status(200).json({
             code: 200, 
             message: "Animales obtenidos de forma exitosa",
-            data: animales
+            data: allAnimals
         })
     } catch (error) {
         console.log(error.message);
@@ -39,7 +44,13 @@ export const getAnimals = async(req, res)=>{
 export const deleteAnimal = async(req, res)=>{
     try {
         const { id } = req.params
-        const animalEliminado = await Animal.delete(id)
+
+        await Animal.destroy({
+            where:{
+                id
+            }
+        })
+
         res.status(200).json({
             code: 200, 
             message: "Animal eliminado de forma exitosa",
@@ -56,16 +67,37 @@ export const deleteAnimal = async(req, res)=>{
 
 export const updateAnimal = async(req, res)=>{
     try {
+
         const { id } = req.params
         const animal = req.body
-        const animalEditado = await Animal.update(id, animal)
+
+
+        const animalBuscado = await Animal.findOne({
+            where:{
+                id
+            }
+        })
+
+        if(!animalBuscado){
+            res.status(404).json({
+                code: 404, 
+                message: "El Animal no existe en la base de datos",
+            })
+
+        }
+
+        await Animal.update(animal, {
+            where: {
+                id
+            }
+        })
+
         res.status(200).json({
             code: 200, 
             message: "Animal editado de forma exitosa",
-            data: animalEditado
         })
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
         res.status(500).json({
             code: 500, 
             message: "Hubo un error interno del servidor"
