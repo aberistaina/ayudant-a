@@ -11,3 +11,12 @@ export const viewHome = (req, res) =>{
         console.log(error.message);
     }
 }
+
+export const viewUpdate = (req, res) =>{
+    try {
+        res.sendFile(path.join(__dirname, "../views/editar.html"))
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+

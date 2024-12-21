@@ -34,7 +34,7 @@ function crearTabla(animales){
             <td>${animal.id}</td>
             <td>${animal.nombre}</td>
             <td>${animal.tipo}</td>
-            <td><button type="button" class="btn btn-success modificar" data-id=${animal.id}>Modificar</button></td>
+            <td><a href="http://localhost:3000/update/${animal.id}"><button type="button" class="btn btn-success modificar" data-id=${animal.id}>Modificar</button></a></td>
             <td><button type="button" class="btn btn-danger eliminar"data-id=${animal.id}>Eliminar</button></td> 
         </tr>
         `

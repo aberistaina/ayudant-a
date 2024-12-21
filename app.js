@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 //Carpeta Publica
-app.use("/public", express.static(path.join(__dirname, "src/views")));
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 
 //endpoints

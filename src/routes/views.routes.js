@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { viewHome } from "../controllers/views.controller.js";
+import { viewHome, viewUpdate } from "../controllers/views.controller.js";
 
 const router = Router()
 
 
 router.get("/", viewHome)
+router.get("/update/:id", viewUpdate )
+
 
 
 

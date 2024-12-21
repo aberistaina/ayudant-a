@@ -41,6 +41,30 @@ export const getAnimals = async(req, res)=>{
     }
 }
 
+export const getAnimalById = async(req, res) =>{
+    try {
+
+        const { id } = req.params
+        const animal = await Animal.findOne({
+            where:{
+                id
+            }
+        })
+
+        res.status(200).json({
+            code: 200, 
+            message: "Animal obtenido con éxito",
+            data: animal
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            code: 500, 
+            message: "Hubo un error interno del servidor"
+        }) 
+    }
+}
+
 export const deleteAnimal = async(req, res)=>{
     try {
         const { id } = req.params
